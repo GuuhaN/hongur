@@ -19,13 +19,59 @@ public class RestaurantService : IRestaurantService
         return await _dbContext.Restaurants.ToListAsync(cancellationToken);
     }
 
-    public Task<Restaurant> UpdateAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<Restaurant> CreateAsync(RestaurantDto entity, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        if (entity == null)
+        {
+            throw new KeyNotFoundException();
+        }
+
+        var restaurant = new Restaurant
+        {
+            Name = entity.Name,
+            Address = entity.Address,
+            HouseNumber = entity.HouseNumber,
+            Postcode = entity.Postcode
+        };
+
+        await _dbContext.Restaurants.AddAsync(restaurant, cancellationToken);
+        await _dbContext.SaveChangesAsync(cancellationToken);
+
+        return restaurant;
     }
 
-    public Task<Restaurant> DeleteAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<RestaurantDto> UpdateAsync(Guid id, RestaurantDto dto, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var restaurant = await _dbContext.Restaurants.FindAsync(id);
+
+        if (restaurant == null)
+        {
+            throw new KeyNotFoundException();
+        }
+
+        restaurant.Name = dto.Name;
+        restaurant.Address = dto.Address;
+        restaurant.Postcode = dto.Postcode;
+        restaurant.HouseNumber = dto.HouseNumber;
+
+        _dbContext.Update(restaurant);
+        await _dbContext.SaveChangesAsync(cancellationToken);
+
+        return dto;
+    }
+
+    public async Task<Restaurant> DeleteAsync(Guid id, CancellationToken cancellationToken)
+    {
+        var restaurant = await _dbContext.Restaurants.FindAsync(id);
+
+        if (restaurant == null)
+        {
+            throw new KeyNotFoundException();
+        }
+
+        _dbContext.Restaurants.Remove(restaurant);
+        await _dbContext.SaveChangesAsync(cancellationToken);
+
+        return restaurant;
     }
 }
