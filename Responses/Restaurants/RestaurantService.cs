@@ -26,7 +26,7 @@ public class RestaurantService : IRestaurantService
             throw new KeyNotFoundException();
         }
 
-        if (await _dbContext.Restaurants.FindAsync(entity.Name, cancellationToken) != null)
+        if (await _dbContext.Restaurants.FirstOrDefaultAsync(restaurant => restaurant.Name == entity.Name, cancellationToken) != null)
         {
             throw new InvalidOperationException("Restaurant already registered");
         }

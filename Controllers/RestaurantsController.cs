@@ -19,6 +19,7 @@ public class RestaurantsController : ControllerBase
     }
 
     [HttpGet]
+    [ProducesResponseType(typeof(IReadOnlyCollection<Restaurant>),200)]
     [ProducesResponseType(typeof(void),404)]
     public async Task<IActionResult> GetAsync(CancellationToken cancellationToken)
     {
@@ -26,6 +27,7 @@ public class RestaurantsController : ControllerBase
     }
     
     [HttpPost]
+    [ProducesResponseType(typeof(Restaurant),200)]
     [ProducesResponseType(typeof(void),404)]
     public async Task<IActionResult> CreateAsync([FromBody]RestaurantDto restaurant, CancellationToken cancellationToken)
     {
@@ -33,6 +35,7 @@ public class RestaurantsController : ControllerBase
     }
     
     [HttpPut]
+    [ProducesResponseType(typeof(Restaurant),200)]
     [ProducesResponseType(typeof(void),404)]
     public async Task<IActionResult> UpdateAsync(Guid id, [FromBody]RestaurantDto restaurant, CancellationToken cancellationToken)
     {
@@ -40,6 +43,7 @@ public class RestaurantsController : ControllerBase
     }
     
     [HttpDelete]
+    [ProducesResponseType(typeof(Restaurant),200)]
     [ProducesResponseType(typeof(void),404)]
     public async Task<IActionResult> DeleteAsync(Guid id, CancellationToken cancellationToken)
     {
