@@ -17,9 +17,5 @@ public class RestaurantConfig : EntityConfig<Restaurant>, IEntityTypeConfigurati
         builder
             .Property(entity => entity.Address)
             .HasMaxLength(255);
-
-        builder
-            .Property(entity => entity.Postcode)
-            .HasMaxLength(255);
     }
 }
