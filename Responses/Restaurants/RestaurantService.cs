@@ -35,8 +35,6 @@ public class RestaurantService : IRestaurantService
         {
             Name = entity.Name,
             Address = entity.Address,
-            HouseNumber = entity.HouseNumber,
-            Postcode = entity.Postcode
         };
 
         await _dbContext.Restaurants.AddAsync(restaurant, cancellationToken);
@@ -53,11 +51,9 @@ public class RestaurantService : IRestaurantService
         {
             throw new KeyNotFoundException();
         }
-
+        
         restaurant.Name = dto.Name;
         restaurant.Address = dto.Address;
-        restaurant.Postcode = dto.Postcode;
-        restaurant.HouseNumber = dto.HouseNumber;
 
         _dbContext.Update(restaurant);
         await _dbContext.SaveChangesAsync(cancellationToken);
