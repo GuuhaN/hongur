@@ -1,4 +1,6 @@
 using hongur.Application;
+using hongur.Responses.Ratings;
+using hongur.Responses.Ratings.Interfaces;
 using hongur.Responses.Restaurants;
 using hongur.Responses.Restaurants.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +19,7 @@ builder.Services.AddSession(options =>
 });
 
 builder.Services.TryAddScoped<IRestaurantService, RestaurantService>();
+builder.Services.TryAddScoped<IRatingService, RatingService>();
 
 builder.Services.AddControllers().AddNewtonsoftJson(options=>
     options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);;
