@@ -1,4 +1,5 @@
 ﻿using hongur.Domains;
+using hongur.Responses.Ratings.Interfaces;
 using hongur.Responses.Restaurants;
 using hongur.Responses.Restaurants.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -9,13 +10,15 @@ namespace hongur.Controllers;
 [Route("[controller]")]
 public class RestaurantsController : ControllerBase
 {
-    private ILogger<RestaurantsController> _logger;
-    private IRestaurantService _restaurantService;
+    private readonly ILogger<RestaurantsController> _logger;
+    private readonly IRestaurantService _restaurantService;
+    private readonly IRatingService _ratingService;
 
-    public RestaurantsController(ILogger<RestaurantsController> logger, IRestaurantService restaurantService)
+    public RestaurantsController(ILogger<RestaurantsController> logger, IRestaurantService restaurantService, IRatingService ratingService)
     {
         _logger = logger;
         _restaurantService = restaurantService;
+        _ratingService = ratingService;
     }
 
     [HttpGet]
@@ -48,5 +51,12 @@ public class RestaurantsController : ControllerBase
     public async Task<IActionResult> DeleteAsync(Guid id, CancellationToken cancellationToken)
     {
         return Ok(await _restaurantService.DeleteAsync(id, cancellationToken));
+    }
+
+    [HttpGet("{id:guid}/ratings")]
+    [ProducesResponseType(typeof(IReadOnlyCollection<RestaurantRatingDto>),200)]
+    public async Task<IActionResult> GetRatingsAsync(Guid id, CancellationToken cancellationToken)
+    {
+        return Ok(await _ratingService.GetRestaurantRatingsAsync(id, cancellationToken));
     }
 }

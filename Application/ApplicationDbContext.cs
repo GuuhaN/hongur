@@ -1,4 +1,5 @@
 ﻿using hongur.Domains;
+using hongur.Domains.Ratings;
 using Microsoft.EntityFrameworkCore;
 
 namespace hongur.Application;
@@ -6,6 +7,7 @@ namespace hongur.Application;
 public class ApplicationDbContext : DbContext
 {
     public DbSet<Restaurant> Restaurants { get; set; }
+    public DbSet<Rating> Ratings { get; set; }
     
     protected readonly IConfiguration _configuration;
 
