@@ -30,6 +30,7 @@ public class RestaurantService : IRestaurantService
         {
             Name = entity.Name,
             Address = entity.Address,
+            PlaceId = entity.PlaceId
         };
 
         await _dbContext.Restaurants.AddAsync(restaurant, cancellationToken);

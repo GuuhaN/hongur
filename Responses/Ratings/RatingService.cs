@@ -61,13 +61,13 @@ public class RatingService : IRatingService
             throw new InvalidOperationException("Score can only be between 1 and 10");
         }
 
-        var restaurantRating = _dbContext.Ratings.OrderByDescending(rating => rating.Created).FirstOrDefault();
+        var restaurantRating = _dbContext.Ratings.OrderByDescending(rating => rating.Created).FirstOrDefault(rating => rating.Restaurant.Id == restaurantId);
 
         if (restaurantRating != null)
         {
-            if (restaurantRating.Created.AddDays(1) >= DateTime.Now.Date)
+            if (restaurantRating.Created.AddDays(1) >= DateTime.Now)
             {
-                throw new InvalidOperationException("You already have voted on this restaurant within 24 hours, come back tomorrow 🧍");
+                throw new InvalidOperationException("You already have voted on this restaurant within 24 hours, come back tomorrow.");
             }
         }
 

@@ -6,6 +6,7 @@ public class Restaurant : Entity
 {
     public string Name { get; set; }
     public string Address { get; set; }
+    public string PlaceId { get; set; }
     
     public virtual ISet<Rating> Ratings { get; set; }
 }
