@@ -2,6 +2,7 @@
 using hongur.Responses.Ratings.Interfaces;
 using hongur.Responses.Restaurants;
 using hongur.Responses.Restaurants.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace hongur.Controllers;

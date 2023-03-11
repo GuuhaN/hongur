@@ -1,12 +1,14 @@
 ﻿using hongur.Domains.Ratings;
 using hongur.Requests;
 using hongur.Responses.Ratings.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace hongur.Controllers;
 
 [ApiController]
 [Route("[controller]")]
+[Authorize]
 public class RatingsController : ControllerBase
 {
     private readonly IRatingService _ratingService;
